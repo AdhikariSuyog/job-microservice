@@ -29,9 +29,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public ResponseEntity<Review> createReview(Long id, Review review) {
-
-        Company company = companyService.findById(id).getBody();
-        if (company != null) {
+        if (companyService.existsById(id)) {
+            Company company = companyService.findById(id).getBody();
             List<Review> reviews = company.getReviews();
             review.setCompany(company);
             reviews.add(review);
@@ -39,7 +38,7 @@ public class ReviewServiceImpl implements ReviewService {
             companyService.updateCompany(company, id);
             return new ResponseEntity<>(reviewRepository.save(review), HttpStatus.CREATED);
         }
-        throw new IllegalArgumentException("couldnot fid company with id " + id);
+        throw new IllegalArgumentException("could not fid company with id " + id);
 
     }
 
@@ -56,9 +55,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public ResponseEntity<Review> updateReview(Review review, Long id, Long companyId) {
-        Optional<Review> optionalJob = reviewRepository.findById(id);
-        if (optionalJob.isPresent()) {
-            Review review1 = optionalJob.get();
+        if (reviewRepository.existsById(id)) {
+            Review review1 = reviewRepository.findById(id).get();
             review1.setDescription(review.getDescription());
             review1.setTitle(review.getTitle());
             review1.setRating(review.getRating());
@@ -70,15 +68,14 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public ResponseEntity<String> deleteReview(Long id, Long companyId) {
         if ((companyService.findById(companyId) != null) && reviewRepository.existsById(id)) {
-
             Review review = reviewRepository.findById(id).orElse(null);
             Company company = review.getCompany();
             company.getReviews().remove(review);
             review.setCompany(null);
             companyService.updateCompany(company, companyId);
             reviewRepository.deleteById(id);
-            return new ResponseEntity<>("job with id: " + id + " is deleted.", HttpStatus.OK);
+            return new ResponseEntity<>("review with id: " + id + " is deleted.", HttpStatus.OK);
         }
-        return new ResponseEntity<>("job with id: " + id + " is not deleted.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("review with id: " + id + " is not deleted.", HttpStatus.BAD_REQUEST);
     }
 }

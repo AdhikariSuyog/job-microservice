@@ -2,6 +2,7 @@ package com.example.job.companypart.model;
 
 import com.example.job.jobpart.model.Job;
 import com.example.job.reviewspart.model.Review;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,7 +22,7 @@ public class Company {
     private String name;
     private String description;
     @OneToMany(mappedBy = "company")
-//    @JsonIgnore
+    @JsonIgnore
     private List<Job> jobs;
     @OneToMany(mappedBy = "company")
     private List<Review> reviews;

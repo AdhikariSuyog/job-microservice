@@ -13,7 +13,6 @@ import java.util.Optional;
 public class CompanyServiceImpl implements CompanyService {
     private final CompanyRepository companyRepository;
 
-
     public CompanyServiceImpl(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
     }
@@ -53,8 +52,12 @@ public class CompanyServiceImpl implements CompanyService {
             Company company = optionalJob.get();
             companyRepository.delete(company);
             return new ResponseEntity<>("job with id: " + id + " is deleted.", HttpStatus.OK);
-
         }
         return new ResponseEntity<>("job with id: " + id + " is deleted.", HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public Boolean existsById(Long id) {
+        return companyRepository.existsById(id);
     }
 }

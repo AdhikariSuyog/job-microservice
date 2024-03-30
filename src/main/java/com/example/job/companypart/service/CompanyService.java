@@ -10,4 +10,5 @@ public interface CompanyService {
     ResponseEntity<Company> findById(Long id);
     ResponseEntity<Company> updateCompany(Company company, Long id);
     ResponseEntity<String> deleteCompany(Long id);
+    Boolean existsById(Long id);
 }

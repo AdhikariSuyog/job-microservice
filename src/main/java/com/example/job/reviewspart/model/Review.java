@@ -25,6 +25,4 @@ public class Review {
     @ManyToOne
     private Company company;
 
-//    private List<Review> reviews;
-
 }

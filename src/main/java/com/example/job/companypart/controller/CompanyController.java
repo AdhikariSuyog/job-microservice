@@ -23,7 +23,6 @@ public class CompanyController {
 
     @PostMapping("/post")
     public ResponseEntity<Company> createCompany(@RequestBody Company company) {
-        System.out.println("+++++++++++++"+company.toString());
         return companyService.createCompany(company);
     }
 
