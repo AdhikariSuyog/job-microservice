@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/company/{companyId}")
+@RequestMapping("review/{companyId}")
 @RestController
 public class ReviewController {
     private final ReviewService reviewService;
@@ -23,7 +23,7 @@ public class ReviewController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<Review> findById(@PathVariable Long id, @PathVariable Long companyId) {
-        return reviewService.findById(id,companyId);
+        return reviewService.findById(id, companyId);
     }
 
     @PostMapping("/post")
@@ -38,6 +38,6 @@ public class ReviewController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteJob(@PathVariable Long id, @PathVariable Long companyId) {
-        return reviewService.deleteReview(id,companyId);
+        return reviewService.deleteReview(id, companyId);
     }
 }

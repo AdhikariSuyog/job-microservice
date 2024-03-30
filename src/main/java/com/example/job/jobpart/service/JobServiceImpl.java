@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ServiceImpl implements JobService {
+public class JobServiceImpl implements JobService {
     private final JobRepository jobRepository;
     private final CompanyService companyService;
 
-    public ServiceImpl(JobRepository jobRepository, CompanyService companyService) {
+    public JobServiceImpl(JobRepository jobRepository, CompanyService companyService) {
         this.jobRepository = jobRepository;
         this.companyService = companyService;
     }
